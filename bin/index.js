@@ -1,11 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
-
-import serviceStatus from './utils/serviceStatus'
+import rateLimit from 'express-rate-limit'
 
 const HOST = "localhost"
 const PORT = "8080"
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 100
+})
 
 const app = express()
 app.use(bodyParser.json()) // for parsing application/json
@@ -17,6 +20,7 @@ app.use(express.static(staticDir))
 const filesDir = path.join(__dirname, '..', 'files')
 app.use('/files', express.static(filesDir))
 
+app.use(limiter)
 // const management = require('./routes/management')
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/../dist/index.html')))
