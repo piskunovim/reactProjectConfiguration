@@ -5,17 +5,24 @@ module.exports = {
   entry: {
     main: ['./bin/client/index.js']
   },
+  stats: 'errors-only',
   output: {
     path: path.resolve(__dirname,'dist','js'),
     filename: '[name].js',
     publicPath: '/js/'
   },
+  cache: {
+    type: 'filesystem',
+  },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader'},
+      { test: /\.jsx?$/, use: 'babel-loader'},
       { test: /\.css$/, use: [ 'style-loader', 'css-loader']},
-      { test: /\.(png|jpg|gif)$/i, use: [ { loader: 'url-loader', options: { limit: 8192 } } ] }
+      { test: /\.(png|jp(e*)g|gif)$/i, use: [ { loader: 'url-loader', options: { limit: 8192 } } ] }
     ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.es6', '.json']
   },
   devServer: {
     historyApiFallback: true
@@ -28,5 +35,5 @@ module.exports = {
       template: './bin/templates/index.html'
     })
   ],
-  watch: true
+  watch: false
 }

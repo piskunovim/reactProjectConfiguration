@@ -1,16 +1,9 @@
-import React, { Fragment, Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
-class MainComponent extends Component {
-    
-    render () {
-        return (<Fragment>
-            Example text to test application
-        </Fragment>)
-    }
-}
+const MainComponent = () => (<>Example text to test application</>)
 
 ReactDOM.render(
-    <MainComponent/>,
+    <MainComponent />,
     document.getElementById('app-init')
 )
